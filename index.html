@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script src="assets/jquery-3.6.0.min.js"></script>
+       <style>
+            #calculator label {
+                display: block;
+            }
+       </style>
+    </head>
+    <body>
+        <div id="calculator">
+
+            <div>
+                <label for="power"> Power (kW) </label>
+                <input id="power_input" type="number" min="100" max="1000">
+            </div>
+
+            <div>
+                <label for="speed"> Speed (RPM) </label>
+                <input id="speed_input" type="number" min="100" max="1000">
+            </div>
+            
+            <div>
+                <button id="calculate"> Calculate </button>
+            </div>
+
+            <div> 
+                <label for="estimate">Torque (N.m) </label>
+                <input id="estimate" type="text" disabled>
+            </div>
+
+        </div>
+        
+        
+        <script>
+
+            function calculateTorque() {
+
+                if( !$("#speed_input").val() || !$("#power_input").val()) {
+                    console.log("One or more fields are empty")
+                    $("#estimate").val("N/A")
+                }
+                else{
+                    const estimate = 1000 * 9.5488 * Number($("#power_input").val()) / Number($("#speed_input").val());
+                    $("#estimate").val(estimate);
+                    console.log(estimate)
+                }
+                
+            }
+
+            $(document).ready(function() {
+
+                $("#power_input").on("input change", function(e) {
+
+                    calculateTorque();
+                });
+                $("#speed_input").on("input change", function(e) {
+                    calculateTorque();
+
+                });
+
+                $("#calculate").click(function() {
+                    calculateTorque();
+                });
+
+
+            });
+        </script>
+    </body>
+</html>
