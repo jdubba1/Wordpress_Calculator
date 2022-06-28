@@ -3,22 +3,29 @@
     <head>
     <script src="assets/jquery-3.6.0.min.js"></script>
        <style>
-            #calculator label {
-                display: block;
-            }
+            /* #calculator label {
+                display: inline;
+            } */
        </style>
     </head>
     <body>
-        <div id="calculator">
+
+        <!-- <div id="calculator">
 
             <div>
-                <label for="power"> Power (kW) </label>
+                <label for="power"> Enter Desired Power: </label>
                 <input id="power_input" type="number" min="100" max="1000">
+                <select name="power_units" id="power_units">
+                    <option value="kW"> kW </option>
+                    <option value="HP"> HP </option>
+                </select>
+
             </div>
 
             <div>
-                <label for="speed"> Speed (RPM) </label>
+                <label for="speed"> Enter Desired Speed: </label>
                 <input id="speed_input" type="number" min="100" max="1000">
+                RPM
             </div>
             
             <div>
@@ -26,25 +33,97 @@
             </div>
 
             <div> 
-                <label for="estimate">Torque (N.m) </label>
+                <label for="estimate"> Torque </label>
                 <input id="estimate" type="text" disabled>
+                N.m
             </div>
+
+        <br>
+            <br>
+            <br> -->
+            <!-- <div>
+                notes for convinience: <br>
+                HP sample ins/outs <br>
+                10, 2000 = 35.6
+                200, 1000 = 1424.11
+            </div> -->
+
+        <!-- </div> -->
+
+
+        <div id ="calculator">
+            <table>
+                <form>
+                    <tr>
+                        <td>
+                            <label for="power"> Desired Power: </label>
+                        </td>
+                        <td>
+                            <input id="power_input" type="number" min="1" max="1000">
+                        </td>
+                        <td>
+                            <select name="power_units" id="power_units">
+                                <option value="kW"> kW </option>
+                                <option value="HP"> HP </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="speed"> Desired Speed: </label>
+                        </td>
+                        <td>
+                            <input id="speed_input" type="number" min="1" max="10000">
+                        </td>
+                        <td>RPM</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button id="calculate" type="button"> Calculate </button>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Estimated Torque: </td>
+                        <td> 
+                            <!-- <label for="estimate"> Torque </label> -->
+                            <input id="estimate" type="text" disabled>
+                        </td>
+                        <td> 
+                            N.m
+                        </td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+
+        <div id="recommendation">
 
         </div>
         
-        
         <script>
+
 
             function calculateTorque() {
 
                 if( !$("#speed_input").val() || !$("#power_input").val()) {
-                    console.log("One or more fields are empty")
-                    $("#estimate").val("N/A")
+                    console.log("One or more fields are empty");
+                    $("#estimate").val("N/A");
                 }
                 else{
-                    const estimate = 1000 * 9.5488 * Number($("#power_input").val()) / Number($("#speed_input").val());
-                    $("#estimate").val(estimate);
-                    console.log(estimate)
+
+                    if ($("#power_units").val() == "kW") {
+                        console.log("kW");
+                        const estimate = 1000 * 9.5488 * Number($("#power_input").val()) / Number($("#speed_input").val());
+                        $("#estimate").val(estimate);
+                    }
+                    
+                    else if ($("#power_units").val() == "HP") {
+                        console.log("HP");
+                        const estimate = .7457 * 1000 * 9.5488 * Number($("#power_input").val()) / Number($("#speed_input").val());
+                        $("#estimate").val(estimate);
+                    }
                 }
                 
             }
@@ -52,12 +131,18 @@
             $(document).ready(function() {
 
                 $("#power_input").on("input change", function(e) {
-
-                    calculateTorque();
+                    
+                    
+                    // ask BHAVNESH IF HE WANTS AUTOFILL HERE AND BELOW
+                    // calculateTorque();
                 });
                 $("#speed_input").on("input change", function(e) {
-                    calculateTorque();
+                    // calculateTorque();
 
+                });
+
+                $("#power_units").on("input change", function(e) {
+                    calculateTorque();
                 });
 
                 $("#calculate").click(function() {
@@ -66,6 +151,153 @@
 
 
             });
+
+
+            let motors = [
+                {
+                    "catalog_Number": "IEs205-AE-15-3600-460-A",
+                    "frame": "IEs205",
+                    "hp": 15,
+                    "rpm": 3600,
+                    "Torque": 29.7,
+                    "max_torque": 32.6,
+                    "min_speed": 720,
+                    "max_speed": 3960
+                },
+                {
+                    "catalog_Number": "IEs205-AD-15-2400-460-A",
+                    "frame": "IEs205",
+                    "hp": 15,
+                    "rpm": 2400,
+                    "Torque": 44.5,
+                    "max_torque": 49.0,
+                    "min_speed": 540,
+                    "max_speed": 2640
+                },
+                {
+                    "catalog_Number": "IEs205-15-1800-460-A",
+                    "frame": "IEs205",
+                    "hp": 15,
+                    "rpm": 1800,
+                    "Torque": 59.3,
+                    "max_torque": 65.3,
+                    "min_speed": 540,
+                    "max_speed": 1980
+                },
+                {
+                    "catalog_Number": "IEs205-1-10-1800-460-A",
+                    "frame": "IEs205",
+                    "hp": 10,
+                    "rpm": 1800,
+                    "Torque": 39.6,
+                    "max_torque": 43.5,
+                    "min_speed": 540,
+                    "max_speed": 1980
+                },
+                {
+                    "catalog_Number": "IEs180-AC-10-3600-460-A",
+                    "frame": "IEs180",
+                    "hp": 10,
+                    "rpm": 1800,
+                    "Torque": 39.6,
+                    "max_torque": 43.5,
+                    "min_speed": 720,
+                    "max_speed": 1980
+                },
+                {
+                    "catalog_Number": "IEs180-2-10-2400-460-A",
+                    "frame": "IEs180",
+                    "hp": 10,
+                    "rpm": 2400,
+                    "Torque": 29.7,
+                    "max_torque": 32.6,
+                    "min_speed": 540,
+                    "max_speed": 2640
+                },
+                {
+                    "catalog_Number": "IEs180-2-7.5-2400-460-A",
+                    "frame": "IEs180",
+                    "hp": 7.5,
+                    "rpm": 2400,
+                    "Torque": 22.3,
+                    "max_torque": 24.5,
+                    "min_speed": 540,
+                    "max_speed": 2640
+                },
+                {
+                    "catalog_Number": "IEs180-2-7.5-1800-460-A",
+                    "frame": "IEs180",
+                    "hp": 7.5,
+                    "rpm": 1800,
+                    "Torque": 29.7,
+                    "max_torque": 32.6,
+                    "min_speed": 520,
+                    "max_speed": 1980
+                },
+                {
+                    "catalog_Number": "IEs150-3-7.5-3600-460-A",
+                    "frame": "IEs150",
+                    "hp": 7.5,
+                    "rpm": 3600,
+                    "Torque": 14.8,
+                    "max_torque": 16.3,
+                    "min_speed": 540,
+                    "max_speed": 3960
+                },
+                {
+                    "catalog_Number": "IEs150-AF-7.5-2400-460-A",
+                    "frame": "IEs150",
+                    "hp": 7.5,
+                    "rpm": 2400,
+                    "Torque": 22.3,
+                    "max_torque": 24.5,
+                    "min_speed": 540,
+                    "max_speed": 2640
+                },
+                {
+                    "catalog_Number": "IEs150-AF-5-2400-460-A",
+                    "frame": "IEs150",
+                    "hp": 5,
+                    "rpm": 2400,
+                    "Torque": 14.8,
+                    "max_torque": 16.3,
+                    "min_speed": 540,
+                    "max_speed": 2640
+                },
+                {
+                    "catalog_Number": "IEs150-AF-5-1800-460-A",
+                    "frame": "IEs150",
+                    "hp": 5,
+                    "rpm": 1800,
+                    "Torque": 19.8,
+                    "max_torque": 21.8,
+                    "min_speed": 540,
+                    "max_speed": 1980
+                },
+                {
+                    "catalog_Number": "IEs130-AA-5-4200-460-A",
+                    "frame": "IEs130",
+                    "hp": 5,
+                    "rpm": 4200,
+                    "Torque": 8.5,
+                    "max_torque": 9.3,
+                    "min_speed": 720,
+                    "max_speed": 4620
+                },
+                {
+                    "catalog_Number": "IEs130-AA-5-4200-460-A",
+                    "frame": "IEs130",
+                    "hp": 5,
+                    "rpm": 3600,
+                    "Torque": 9.9,
+                    "max_torque": 10.9,
+                    "min_speed": 720,
+                    "max_speed": 3960
+                },
+            ]
+
+
+
         </script>
     </body>
 </html>
