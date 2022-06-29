@@ -52,6 +52,9 @@
 
 
         <div id ="calculator">
+        <strong> Torque Calculator </strong>
+        <br>
+        <br>
             <table>
                 <form>
                     <tr>
@@ -63,8 +66,8 @@
                         </td>
                         <td>
                             <select name="power_units" id="power_units">
-                                <option value="kW"> kW </option>
                                 <option value="HP"> HP </option>
+                                <option value="kW"> kW </option>
                             </select>
                         </td>
                     </tr>
@@ -91,14 +94,59 @@
                             <input id="estimate" type="text" disabled>
                         </td>
                         <td> 
-                            N.m
+                            Nm
                         </td>
                     </tr>
                 </form>
             </table>
         </div>
+        <br>
+        <br>
 
         <div id="recommendation">
+            <strong> Compatible Motor(s) </strong>
+        </div>
+
+        <table id="recommended">
+            <tr>
+                <th>Catalog Number</th>
+                <th>Frame</th>
+                <th>hp</th>
+                <th>rpm</th>
+                <th>torque</th>
+                <th>max torque</th>
+                <th>min speed</th>
+                <th>max speed</th>
+            </tr>
+        </table>
+
+        <br>
+
+        <div id="clearButton">
+            <button id="clear" type="button"> CLEAR </button>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div id="footer"> 
+        <strong>Test Cases:</strong> <br> <br>
+       
+        (13hp, 3000rpm) -- > IEs205-AE-15-3600-460-A <br>
+        (13hp, 2000rpm) -- > IEs205-AE-15-3600-460-A, IEs205-AE-15-2400-460-A <br>
+        (8hp, 1500rpm) --> most motors should show up here. <br>
+        (5hp, 4200rpm) --> IEs130-AA-5-4200-460-A 
+
+
+        <br> <br>
+        <strong>NOTES</strong> <br> <br>
+
+        * use hp for motor recommendation / should add kW conversion to data? <br>
+        * currently sorting results by lowest power & speed motor that will work for input <br>
+        * as per the excel sheet, we are recommending motors based on speed and power inputs, should we consider torque ratings? <br>
+        * round off torque result to how many decimal places ? 
 
         </div>
         
@@ -123,6 +171,7 @@
                         console.log("HP");
                         const estimate = .7457 * 1000 * 9.5488 * Number($("#power_input").val()) / Number($("#speed_input").val());
                         $("#estimate").val(estimate);
+                        findCompatible();
                     }
                 }
                 
@@ -131,8 +180,6 @@
             $(document).ready(function() {
 
                 $("#power_input").on("input change", function(e) {
-                    
-                    
                     // ask BHAVNESH IF HE WANTS AUTOFILL HERE AND BELOW
                     // calculateTorque();
                 });
@@ -149,17 +196,20 @@
                     calculateTorque();
                 });
 
+                $("#clear").click(function() {
+                    $("#recommended tbody tr").remove(); 
+                });
 
             });
 
 
-            let motors = [
+            var motors = [
                 {
                     "catalog_Number": "IEs205-AE-15-3600-460-A",
                     "frame": "IEs205",
                     "hp": 15,
                     "rpm": 3600,
-                    "Torque": 29.7,
+                    "torque": 29.7,
                     "max_torque": 32.6,
                     "min_speed": 720,
                     "max_speed": 3960
@@ -169,7 +219,7 @@
                     "frame": "IEs205",
                     "hp": 15,
                     "rpm": 2400,
-                    "Torque": 44.5,
+                    "torque": 44.5,
                     "max_torque": 49.0,
                     "min_speed": 540,
                     "max_speed": 2640
@@ -179,7 +229,7 @@
                     "frame": "IEs205",
                     "hp": 15,
                     "rpm": 1800,
-                    "Torque": 59.3,
+                    "torque": 59.3,
                     "max_torque": 65.3,
                     "min_speed": 540,
                     "max_speed": 1980
@@ -189,7 +239,7 @@
                     "frame": "IEs205",
                     "hp": 10,
                     "rpm": 1800,
-                    "Torque": 39.6,
+                    "torque": 39.6,
                     "max_torque": 43.5,
                     "min_speed": 540,
                     "max_speed": 1980
@@ -199,7 +249,7 @@
                     "frame": "IEs180",
                     "hp": 10,
                     "rpm": 1800,
-                    "Torque": 39.6,
+                    "torque": 39.6,
                     "max_torque": 43.5,
                     "min_speed": 720,
                     "max_speed": 1980
@@ -209,7 +259,7 @@
                     "frame": "IEs180",
                     "hp": 10,
                     "rpm": 2400,
-                    "Torque": 29.7,
+                    "torque": 29.7,
                     "max_torque": 32.6,
                     "min_speed": 540,
                     "max_speed": 2640
@@ -219,7 +269,7 @@
                     "frame": "IEs180",
                     "hp": 7.5,
                     "rpm": 2400,
-                    "Torque": 22.3,
+                    "torque": 22.3,
                     "max_torque": 24.5,
                     "min_speed": 540,
                     "max_speed": 2640
@@ -229,7 +279,7 @@
                     "frame": "IEs180",
                     "hp": 7.5,
                     "rpm": 1800,
-                    "Torque": 29.7,
+                    "torque": 29.7,
                     "max_torque": 32.6,
                     "min_speed": 520,
                     "max_speed": 1980
@@ -239,7 +289,7 @@
                     "frame": "IEs150",
                     "hp": 7.5,
                     "rpm": 3600,
-                    "Torque": 14.8,
+                    "torque": 14.8,
                     "max_torque": 16.3,
                     "min_speed": 540,
                     "max_speed": 3960
@@ -249,7 +299,7 @@
                     "frame": "IEs150",
                     "hp": 7.5,
                     "rpm": 2400,
-                    "Torque": 22.3,
+                    "torque": 22.3,
                     "max_torque": 24.5,
                     "min_speed": 540,
                     "max_speed": 2640
@@ -259,7 +309,7 @@
                     "frame": "IEs150",
                     "hp": 5,
                     "rpm": 2400,
-                    "Torque": 14.8,
+                    "torque": 14.8,
                     "max_torque": 16.3,
                     "min_speed": 540,
                     "max_speed": 2640
@@ -269,7 +319,7 @@
                     "frame": "IEs150",
                     "hp": 5,
                     "rpm": 1800,
-                    "Torque": 19.8,
+                    "torque": 19.8,
                     "max_torque": 21.8,
                     "min_speed": 540,
                     "max_speed": 1980
@@ -279,7 +329,7 @@
                     "frame": "IEs130",
                     "hp": 5,
                     "rpm": 4200,
-                    "Torque": 8.5,
+                    "torque": 8.5,
                     "max_torque": 9.3,
                     "min_speed": 720,
                     "max_speed": 4620
@@ -289,12 +339,81 @@
                     "frame": "IEs130",
                     "hp": 5,
                     "rpm": 3600,
-                    "Torque": 9.9,
+                    "torque": 9.9,
                     "max_torque": 10.9,
                     "min_speed": 720,
                     "max_speed": 3960
                 },
             ]
+
+            function findCompatible() {
+
+                let results = [];
+
+                for (const motor of motors){
+                    // console.log("in for loop");
+                    if (motor.max_speed >= Number($("#speed_input").val()) && motor.min_speed <= Number($("#speed_input").val()) ) {
+                        // console.log("MADE IT PAST FIRST IF");
+                        // console.log(motor.catalog_Number);
+                        if (motor.hp >= Number($("#power_input").val())) {
+                            results.push(motor);
+                            // console.log("made it in here!");
+                        }
+                    }
+                } 
+
+                console.log(results);
+
+                //assistArray = [catalog_Number, frame, hp, rpm, torque, max_torque, min_speed, max_speed];
+                // Number($("#power_input").val()) / Number($("#speed_input").val());
+                table = document.getElementById("recommended");
+
+                for (const result of results){
+                    var newRow = table.insertRow(table.length);
+                        var cell0 = newRow.insertCell(0);
+                        cell0.innerHTML = result.catalog_Number;
+                        var cell1 = newRow.insertCell(1);
+                        cell1.innerHTML = result.frame;
+                        var cell2 = newRow.insertCell(2);
+                        cell2.innerHTML = result.hp;
+                        var cell3 = newRow.insertCell(3);
+                        cell3.innerHTML = result.rpm;
+                        var cell4 = newRow.insertCell(4);
+                        cell4.innerHTML = result.torque;
+                        var cell5 = newRow.insertCell(5);
+                        cell5.innerHTML = result.max_torque;
+                        var cell6 = newRow.insertCell(6);
+                        cell6.innerHTML = result.min_speed;
+                        var cell7 = newRow.insertCell(7);
+                        cell7.innerHTML = result.max_speed;
+                    }
+                }
+
+                // for(var i = 0; i < results.length; i++){
+                //     // create a new row
+                //     var newRow = table.insertRow(table.length);
+                //     for(var j = 0; j < array[i].length; j++)
+                //     {
+                //         // create a new cell
+                //         var cell = newRow.insertCell(j);
+                        
+                //         // add value to the cell
+                //         cell.innerHTML = array[i][j];
+                //     }
+                // }
+
+
+                // displayResult();
+
+            function displayResult(){
+
+                const newDiv = document.createElement("div");
+                const newContent = document.createTextNode("I AM SOME NEW TEXT");
+                newDiv.appendChild(newContent);
+                const currentDiv = document.getElementById("footer");
+                document.body.insertBefore(newDiv, currentDiv);
+
+            }
 
 
 
