@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <script src="assets/jquery-3.6.0.min.js"></script>
+        <script src="assets/jquery-3.6.0.min.js"></script>
     </head>
     <body>
-
-
         <div id ="calculator">
-        <strong> Torque Calculator </strong>
-        <br>
-        <br>
+            <strong> Torque Calculator </strong>
+
             <table>
                 <form>
+
                     <tr>
                         <td>
                             <label for="power"> Desired Power: </label>
@@ -20,17 +18,15 @@
                             <input id="power_input" type="number" min="1" max="1000">
                         </td>
                         <td>
-
                             HP
-
                             <!-- HP / Kw option below  -->
                             <!-- <select name="power_units" id="power_units">
                                 <option value="HP"> HP </option>
                                 <option value="kW"> kW </option>
                             </select> -->
-
                         </td>
                     </tr>
+
                     <tr>
                         <td>
                             <label for="speed"> Desired Speed: </label>
@@ -40,6 +36,7 @@
                         </td>
                         <td>RPM</td>
                     </tr>
+
                     <tr>
                         <td></td>
                         <td>
@@ -47,6 +44,7 @@
                         </td>
                         <td></td>
                     </tr>
+
                     <tr>
                         <td>Estimated Torque: </td>
                         <td> 
@@ -56,18 +54,17 @@
                             Nm
                         </td>
                     </tr>
+
                 </form>
             </table>
         </div>
-        <br>
-        <br>
 
         <div hidden id="recommendation">
             <strong> Compatible Motors: </strong> <br> 
         </div>
 
-        <table hidden id="recommended">
-            <tr>
+        <table hidden id="recommended"></table>
+            <!-- <tr>
                 <th>Catalog Number</th>
                 <th>Frame</th>
                 <th>HP</th>
@@ -77,10 +74,8 @@
                 <th>Min Speed</th>
                 <th>Max Speed</th>
                 <th>Specification</th>
-            </tr>
-        </table>
+            </tr> -->
 
-        <br>
 
         <div id="belowtable"> </div>
 
@@ -103,14 +98,21 @@
             function calculateTorque() {
 
                 if( !$("#speed_input").val() || !$("#power_input").val()) {
-                    console.log("One or more fields are empty");
+                    // console.log("One or more fields are empty");
                     $("#estimate").val("N/A");
+                }
+
+                else if ($("#speed_input").val() < 1 || $("#speed_input").val() > 10000){
+                    alert("Speed input must be between 1 and 10,000 RPMs.")
+                }
+
+                else if ($("#power_input").val() < 1 || $("#power_input").val() > 1000){
+                    alert("Power input must be between 1 and 1,000 Horsepower.")
                 }
 
                 else{
 
                     const estimate = (.7457 * 1000 * 9.5488 * Number($("#power_input").val()) / Number($("#speed_input").val())).toFixed(2);
-                    // estimate = estimate.toFixed(2);
                     $("#estimate").val(estimate);
                     findCompatible();
 
@@ -154,6 +156,7 @@
                 });
 
                 $("#calculate").click(function() {
+                    document.getElementById('belowtable').innerHTML = "";
                     $("#recommended tbody tr").remove(); 
                     calculateTorque();
                 });
@@ -342,10 +345,36 @@
                 } 
 
                 if (results.length != 0) { 
+
                     document.getElementById("recommended").hidden = false;
                     document.getElementById("recommendation").hidden = false;
                     document.getElementById("clearButton").hidden = false;
-                    table = document.getElementById("recommended");
+
+                    var table = document.getElementById("recommended");
+                    
+                    // Populate Table Header
+                    var tableheader = table.createTHead();
+                    var headerrow = tableheader.insertRow(0);
+                        var headercell0 = headerrow.insertCell(0);
+                        headercell0.innerHTML = "<b>Catalog Number</b>";
+                        var headercell1 = headerrow.insertCell(1);
+                        headercell1.innerHTML = "<b>Frame</b>";
+                        var headercell2 = headerrow.insertCell(2);
+                        headercell2.innerHTML = "<b>HP</b>";
+                        var headercell3 = headerrow.insertCell(3);
+                        headercell3.innerHTML = "<b>RPM</b>";
+                        var headercell4 = headerrow.insertCell(4);
+                        headercell4.innerHTML = "<b>Torque</b>";
+                        var headercell5 = headerrow.insertCell(5);
+                        headercell5.innerHTML = "<b>Max Torque</b>";
+                        var headercell6 = headerrow.insertCell(6);
+                        headercell6.innerHTML = "<b>Min Speed</b>";
+                        var headercell7 = headerrow.insertCell(7);
+                        headercell7.innerHTML = "<b>Max Speed</b>";
+                        var headercell8 = headerrow.insertCell(8);
+                        headercell8.innerHTML = "<b>Link</b>";
+                    
+                    // Populate Table Rows
                     for (const result of results){
                         var newRow = table.insertRow(table.length);
                             var cell0 = newRow.insertCell(0);
@@ -370,7 +399,7 @@
                 }
 
                 else {
-                    document.getElementById('belowtable').innerHTML += 'No compatible motors were found.';
+                    document.getElementById('belowtable').innerHTML += "No compatible motors were found.";
                 }
             }
             
