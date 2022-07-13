@@ -123,14 +123,14 @@
                         console.log("kW");
                         const estimate = (1000 * 9.5488 * Number($("#power_input").val()) / Number($("#speed_input").val())).toFixed(2);
                         $("#estimate").val(estimate);
-                        findCompatible();
+                        findCompatible(estimate);
                     }
                     
                     else if ($("#power_units").val() == "HP") {
                         console.log("HP");
                         const estimate = (.7457 * 1000 * 9.5488 * Number($("#power_input").val()) / Number($("#speed_input").val())).toFixed(2);
                         $("#estimate").val(estimate);
-                        findCompatible();
+                        findCompatible(estimate);
                     }
 
                     
@@ -156,12 +156,12 @@
                     $("#recommended tr").remove();
                     document.getElementById("recommendation").hidden = true;
                     document.getElementById("clearButton").hidden = true;
-                    console.log("CLEARING ON INPUT CHANGE??") 
+                    // console.log("CLEARING ON INPUT CHANGE??") 
                     calculateTorque();
                 });
 
                 $("#calculate").click(function() {
-                    document.getElementById('belowtable').innerHTML = "";
+                    // document.getElementById('belowtable').innerHTML = "";
                     $("#recommended tr").remove(); 
                     calculateTorque();
                 });
@@ -366,8 +366,16 @@
                     "max_speed": 3960,
                     "link": "https://support.infinitumelectric.com/hc/en-us/articles/4410889499667-IEs205-15HP-3600RPM-Specification"
                 },                 
-            ]       
+            ]    
+            
+            // sort motors by ascending torque for now
+            // in phase 2, a full sort method for any variable will be implemented
 
+            motors.sort((a,b) => {
+                return a.torque - b.torque;
+            });
+
+            console.log(motors);
 
             function findCompatible() {
 
@@ -376,14 +384,17 @@
                 for (const motor of motors){
                     if (motor.max_speed >= Number($("#speed_input").val()) && motor.min_speed <= Number($("#speed_input").val()) ) {
                         if ($("#power_units").val() == "kW") {
-                            console.log("motor kw");
                             if (motor.kw >= Number($("#power_input").val())) {
-                                results.push(motor); 
+                                if (motor.torque >= arguments[0] && motor.max_torque > arguments[0]){
+                                    results.push(motor); 
+                                }
                             }
                         }
                         else if ($("#power_units").val() == "HP") {
                             if (motor.hp >= Number($("#power_input").val())) {
-                                results.push(motor); 
+                                if (motor.torque >= arguments[0] && motor.max_torque > arguments[0]){
+                                    results.push(motor); 
+                                }
                             }
                         }
                     }
@@ -466,7 +477,9 @@
 
                 
                 else {
-                    document.getElementById('belowtable').innerHTML += "No compatible motors were found.";
+                    // console.log("how many times is this happening?");
+                    // document.getElementById('belowtable').innerHTML += "No compatible motors were found.";
+                    alert("No compatible motors were found.");
                 }
             }     
         </script>
