@@ -2,6 +2,15 @@
 <html>
     <head>
         <script src="assets/jquery-3.6.0.min.js"></script>
+
+        <style> 
+
+            .green{background-color: green;} 
+          
+            .yellow{background-color: yellow;} 
+          
+          </style>
+
     </head>
     <body>
         <div id ="calculator">
@@ -330,14 +339,20 @@
                     if (motor.max_speed >= Number($("#speed_input").val()) && motor.min_speed <= Number($("#speed_input").val()) ) {
                         if ($("#power_units").val() == "kW") {
                             if (motor.kw >= Number($("#power_input").val())) {
-                                if (motor.torque >= arguments[0] && motor.max_torque > arguments[0]){
+                                // if (motor.torque >= arguments[0] && motor.max_torque > arguments[0]){
+                                //     results.push(motor); 
+                                // }
+                                if (motor.max_torque >= arguments[0]){
                                     results.push(motor); 
                                 }
                             }
                         }
                         else if ($("#power_units").val() == "HP") {
                             if (motor.hp >= Number($("#power_input").val())) {
-                                if (motor.torque >= arguments[0] && motor.max_torque > arguments[0]){
+                                // if (motor.torque >= arguments[0] && motor.max_torque > arguments[0]){
+                                //     results.push(motor); 
+                                // }
+                                if (motor.max_torque >= arguments[0]){
                                     results.push(motor); 
                                 }
                             }
@@ -354,6 +369,7 @@
                     document.getElementById("clearButton").hidden = false;
 
                     var table = document.getElementById("recommended");
+
                     // Populate Table Header
                     var tableheader = table.createTHead();
                     var headerrow = tableheader.insertRow(0);
@@ -388,7 +404,16 @@
                     
                     // Populate Table Rows
                     for (const result of results){
+                        
                         var newRow = table.insertRow(table.length);
+                        
+                        if (document.getElementById("estimate").value > result.torque && document.getElementById("estimate").value <= result.max_torque ){
+                            newRow.className = "yellow";
+                        }
+                        else { 
+                            newRow.className = "green";
+                        }
+
                             var cell0 = newRow.insertCell(0);
                             cell0.innerHTML = result.catalog_Number;
                             var cell1 = newRow.insertCell(1);
@@ -423,8 +448,6 @@
                 
                 else {
                     
-                    // In case we want to change the no compatible motors msg to body text
-                    // document.getElementById('belowtable').innerHTML += "No compatible motors were found.";
                     document.getElementById("recommended").hidden = true;
                     alert("No compatible motors were found.");
                 }

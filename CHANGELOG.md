@@ -17,6 +17,10 @@ CHANGELOG
 7/18
 
 - no compatible motors found bug occurs when calculated in hp and switching to kw (FIX ME)
+- add torque shading added (yellow if geq torque and leq max torque)
+- added calculate on enter press
+- fixed sticky compatible motors div
+- leaving calculate button where it is for now to mimic WEN technologies calculator
 
 
 
@@ -30,9 +34,7 @@ CHANGELOG
 
 TODO - PHASE 1:
 
-- add torque shading via 10% rule --INCOMPLETE--
-- add enter press to calculate --INCOMPLETE--
-- move calculate button to results line --INCOMPLETE--
+- order motors in a different way
 - update wordpress code once the above has been completed --INCOMPLETE--
 - motor array as JSON file? --INCOMPLETE-- LOW PRIORITY//FORMATTING ISSUES
 - FINAL PHASE1 TESTING  -- INCOMPLETE -- 
