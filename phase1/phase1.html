@@ -18,8 +18,6 @@
                             <input id="power_input" type="number" min="1" max="1000">
                         </td>
                         <td>
-                            <!-- HP -->
-                            <!-- HP / Kw option below  -->
                             <select name="power_units" id="power_units">
                                 <option value="HP"> HP </option>
                                 <option value="kW"> kW </option>
@@ -57,6 +55,7 @@
 
                 </form>
             </table>
+
         </div>
 
         <div hidden id="recommendation">
@@ -64,60 +63,63 @@
         </div>
 
         <table hidden id="recommended"></table>
-            <!-- <tr>
-                <th>Catalog Number</th>
-                <th>Frame</th>
-                <th>HP</th>
-                <th>RPM</th>
-                <th>Torque</th>
-                <th>Max Torque</th>
-                <th>Min Speed</th>
-                <th>Max Speed</th>
-                <th>Specification</th>
-            </tr> -->
 
-        <!-- this div is where the no compatible motors message displays -->
-        <div id="belowtable"> </div>
-
-        <!-- This clear button is not neccessary as clearing is performed automatically -->
         <div hidden id="clearButton">
             <button id="clear" type="button"> Clear results </button>
         </div>
 
 
-        <!-- Test Cases:
-       
-        (13hp, 3000rpm) IEs205-AE-15-3600-460-A 
-        (13hp, 2000rpm) IEs205-AE-15-3600-460-A, IEs205-AE-15-2400-460-A 
-        (8hp, 1500rpm) most motors should show up here. 
-        (5hp, 4200rpm) IEs130-AA-5-4200-460-A  -->
-
         
         <script>
+
+            $(document).ready(function() {
+                $("#speed_input").keypress(function(e) {
+                    if(e.keyCode==13){$("#calculate").click();}
+                });
+                $("#power_input").keypress(function(e) {
+                    if(e.keyCode==13){$("#calculate").click();}
+                });
+
+                // In case we want to make the calculator more reactive to inputs:
+                // $("#power_input").on("input change", function(e) {calculateTorque();});
+                // $("#speed_input").on("input change", function(e) {calculateTorque();});
+
+                $("#power_units").on("input change", function(e) {
+                    $("#recommended tr").remove();
+                    document.getElementById("recommendation").hidden = true;
+                    document.getElementById("clearButton").hidden = true;
+                    calculateTorque();
+                });
+
+                $("#calculate").click(function() {
+                    $("#recommended tr").remove(); 
+                    calculateTorque();
+                });
+
+                $("#clear").click(function() {
+                    $("#recommended tr").remove(); 
+                    document.getElementById("recommendation").hidden = true;
+                    document.getElementById("clearButton").hidden = true;
+                });
+            });
+
 
             function calculateTorque() {
 
                 if( !$("#speed_input").val() || !$("#power_input").val()) {
-                    // console.log("One or more fields are empty");
-                    $("#estimate").val("N/A");
+                    $("#estimate").val("Undefined");
+                    alert("One or more fields are empty.");
                 }
 
                 else if ($("#speed_input").val() < 1 || $("#speed_input").val() > 10000){
-                    alert("Speed input must be between 1 and 10,000 RPMs.")
+                    alert("Speed input must be between 1 and 10,000 RPMs.");
                 }
 
                 else if ($("#power_input").val() < 1 || $("#power_input").val() > 1000){
-                    alert("Power input must be between 1 and 1,000 Horsepower.")
+                    alert("Power input must be between 1 and 1,000 Horsepower.");
                 }
 
                 else{
-
-                    // const estimate = (.7457 * 1000 * 9.5488 * Number($("#power_input").val()) / Number($("#speed_input").val())).toFixed(2);
-                    // $("#estimate").val(estimate);
-                    // findCompatible();
-
-
-                    // Replace the above code with the code below in order to enable kW / HP calculations
 
                     if ($("#power_units").val() == "kW") {
                         console.log("kW");
@@ -132,50 +134,8 @@
                         $("#estimate").val(estimate);
                         findCompatible(estimate);
                     }
-
-                    
-
                 }
-                
             }
-
-            $(document).ready(function() {
-
-
-            // In case we want to make the calculator more responsive
-
-                $("#power_input").on("input change", function(e) {
-                    // calculateTorque();
-                });
-                $("#speed_input").on("input change", function(e) {
-                    // calculateTorque();
-
-                });
-
-                $("#power_units").on("input change", function(e) {
-                    $("#recommended tr").remove();
-                    document.getElementById("recommendation").hidden = true;
-                    document.getElementById("clearButton").hidden = true;
-                    // console.log("CLEARING ON INPUT CHANGE??") 
-                    calculateTorque();
-                });
-
-                $("#calculate").click(function() {
-                    // document.getElementById('belowtable').innerHTML = "";
-                    $("#recommended tr").remove(); 
-                    calculateTorque();
-                });
-
-                // This clear button is technically unnecessary
-                // clear is called whenever the calculate button is pressed
-
-                $("#clear").click(function() {
-                    $("#recommended tr").remove(); 
-                    document.getElementById("recommendation").hidden = true;
-                    document.getElementById("clearButton").hidden = true;
-                });
-
-            });
 
         // Motor objects are pre-sorted in the following hierarchy
         // 1. Frame type 2. Hp 3. Max Rpm  (all low to high)
@@ -325,21 +285,6 @@
                     "max_speed": 1980,
                     "link": "https://support.infinitumelectric.com/hc/en-us/articles/4410881773203-IEs205-10HP-1800RPM-Specification"
                 },
-
-                // unreleased motor
-
-                // {
-                //     "catalog_Number": "IEs205-15-1800-460-A",
-                //     "frame": "IEs205",
-                //     "hp": 15,
-                //     "rpm": 1800,
-                //     "torque": 59.3,
-                //     "max_torque": 65.3,
-                //     "min_speed": 540,
-                //     "max_speed": 1980,
-                //     "link": "N/A"
-                // },
-
                 {
                     "catalog_Number": "IEs205-AD-15-2400-460",
                     "frame": "IEs205",
@@ -477,8 +422,10 @@
 
                 
                 else {
-                    // console.log("how many times is this happening?");
+                    
+                    // In case we want to change the no compatible motors msg to body text
                     // document.getElementById('belowtable').innerHTML += "No compatible motors were found.";
+                    document.getElementById("recommended").hidden = true;
                     alert("No compatible motors were found.");
                 }
             }     

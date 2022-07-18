@@ -14,6 +14,10 @@ CHANGELOG
 - testing performed on kW logic
 - repeat "no compatible" issue resolved by switching to ALERT 
 
+7/18
+
+- no compatible motors found bug occurs when calculated in hp and switching to kw (FIX ME)
+
 
 
 
@@ -26,19 +30,17 @@ CHANGELOG
 
 TODO - PHASE 1:
 
-- add torque shading --INCOMPLETE--
+- add torque shading via 10% rule --INCOMPLETE--
 - add enter press to calculate --INCOMPLETE--
 - move calculate button to results line --INCOMPLETE--
-- motor array as JSON file? --INCOMPLETE-- {{LOW PRIORITY // LOTS OF FORMATTING ISSUES }}
 - update wordpress code once the above has been completed --INCOMPLETE--
+- motor array as JSON file? --INCOMPLETE-- LOW PRIORITY//FORMATTING ISSUES
 - FINAL PHASE1 TESTING  -- INCOMPLETE -- 
 
 
-
-DISCUSSION:
-- catalogue number on right side of table??
-- no compatible motors were found as an alert? or as html element
-
+DISCUSSION
+    - catalogue number on right side of table??
+    - no compatible motors were found as an alert? or as html element
 
 
 
