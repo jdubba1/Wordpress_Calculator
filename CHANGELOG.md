@@ -34,7 +34,10 @@ CHANGELOG
 
 TODO - PHASE 1:
 
-- order motors in a different way
+- order motors in a different way?
+- remove specs link and make it so you can just click the table row of the motor you want
+
+
 - update wordpress code once the above has been completed --INCOMPLETE--
 - motor array as JSON file? --INCOMPLETE-- LOW PRIORITY//FORMATTING ISSUES
 - FINAL PHASE1 TESTING  -- INCOMPLETE -- 
