@@ -2,13 +2,79 @@
 <html>
     <head>
         <script src="assets/jquery-3.6.0.min.js"></script>
+         <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
         <style> 
 
             .green{background-color: #90EE90;} 
           
-            .yellow{background-color: #FFE87C ;} 
-          
+            .yellow{background-color: #FFE87C;} 
+
+            #recommended{
+                table-layout: auto;
+                border-collapse: collapse;
+                word-break: normal;
+            }
+
+            #calculator{
+                word-break:normal;
+                padding: 0 200px 50px;
+            }
+
+            .container{
+                width: 100%;
+            }   
+
+            .full-width-content .content {
+                padding: 0 0px 0px;
+            }
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            input {
+                width: 100%;
+                display: block;
+                margin: 0 auto;
+            }
+
+            .column1a{
+                text-align: right;
+            }
+
+            /* .input-group {
+                width: 80%;
+                margin: 0;
+            } */
+
+            /* Firefox */
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+
+            #power_units {
+                padding: 3.5px 4px;
+                color: #333333;
+                background-color: #eeeeee;
+                border: 1px solid #dddddd;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+
+            #power_units:focus,
+            #power_units:hover {
+                outline: none;
+                border: 1px solid #bbbbbb;
+            }
+
+            #recommendation{
+                padding-left: 8px;
+            }
+                    
         </style>
 
     </head>
@@ -28,6 +94,16 @@
                             <input id="power_input" type="number" min="1" max="1000">
                         </td>
                         <td class ="column3a">
+                            <!-- <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Dropdown button
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="#">Horsepower</a>
+                                  <a class="dropdown-item" href="#">Kilowatts</a>
+                                </div>
+                              </div> -->
+
                             <select name="power_units" id="power_units">
                                 <option value="HP"> Horsepower </option>
                                 <option value="kW"> Kilowatts </option>
@@ -45,21 +121,26 @@
                         <td class ="column3a">RPM</td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td class ="column1a"></td>
                         <td class ="column2a">
                             <button id="calculate" type="button"> Calculate </button>
                         </td>
                         <td class ="column3a"></td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <td class ="column1a">Estimated Torque: </td>
                         <td class ="column2a"> 
-                            <input id="estimate" type="text" disabled>
+                            <div class="input-group">
+                                <input id="estimate" type="text" class="form-control" disabled>
+                                <div class ="input-group-append">
+                                    <span class ="input-group-text"> N.m </span>
+                                </div>
+                            </div>
                         </td>
-                        <td class ="column3a"> 
-                            Nm
+                        <td class ="column2a">
+                            <button id="calculate" type="button" class="btn btn-dark"> Calculate </button>
                         </td>
                     </tr>
 
@@ -73,7 +154,7 @@
         </div>
 
         <div style="overflow-x:auto;">
-            <table hidden id="recommended"></table>
+            <table hidden id="recommended" class="table table-hover"></table>
         </div>
 
         <div hidden id="clearButton">
@@ -378,50 +459,50 @@
                     var headerrow = tableheader.insertRow(0);
 
                         var headercell0 = headerrow.insertCell(0);
-                        headercell0.innerHTML = "<b>Catalog Number</b>";
+                        headercell0.innerHTML = "Catalog Number";
                         headercell0.className = "C0";
 
                         var headercell1 = headerrow.insertCell(1);
-                        headercell1.innerHTML = "<b>Frame</b>";
+                        headercell1.innerHTML = "Frame";
                         headercell1.className = "C1";
 
                         var headercell2 = headerrow.insertCell(2);
-                        headercell2.innerHTML = "<b>Diameter</b>";
+                        headercell2.innerHTML = "Diameter";
                         headercell2.className = "C2";
                         
                         if ($("#power_units").val() == "kW") {
                             var headercell3 = headerrow.insertCell(3);
-                            headercell3.innerHTML = "<b>kW</b>";
+                            headercell3.innerHTML = "kW";
                             headercell3.className = "C3";
                         }    
                         else if ($("#power_units").val() == "HP") {
                             var headercell3 = headerrow.insertCell(3);
-                            headercell3.innerHTML = "<b>HP</b>";
+                            headercell3.innerHTML = "HP";
                             headercell3.className = "C3";
                         }
 
                         var headercell4 = headerrow.insertCell(4);
-                        headercell4.innerHTML = "<b>RPM</b>";
+                        headercell4.innerHTML = "RPM";
                         headercell4.className = "C4";
 
                         var headercell5 = headerrow.insertCell(5);
-                        headercell5.innerHTML = "<b>Torque</b>";
+                        headercell5.innerHTML = "Torque";
                         headercell5.className = "C5";
 
                         var headercell6 = headerrow.insertCell(6);
-                        headercell6.innerHTML = "<b>Max Torque</b>";
+                        headercell6.innerHTML = "Max Torque";
                         headercell6.className = "C6";
 
                         var headercell7 = headerrow.insertCell(7);
-                        headercell7.innerHTML = "<b>Min Speed</b>";
+                        headercell7.innerHTML = "Min Speed";
                         headercell7.className = "C7";
 
                         var headercell8 = headerrow.insertCell(8);
-                        headercell8.innerHTML = "<b>Max Speed</b>";
+                        headercell8.innerHTML = "Max Speed";
                         headercell8.className = "C8";
 
                         var headercell9 = headerrow.insertCell(9);
-                        headercell9.innerHTML = "<b>Link</b>";
+                        headercell9.innerHTML = "Link";
                         headercell9.className = "C9";
                     
                     // Populate Table Rows
