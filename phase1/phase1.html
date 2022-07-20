@@ -15,50 +15,50 @@
     <body>
         
         <div id ="calculator">
-            <strong> Torque Calculator </strong>
+            <!-- <strong> Torque Calculator </strong> -->
 
             <table>
                 <form>
 
                     <tr>
-                        <td>
+                        <td class ="column1a">
                             <label for="power"> Desired Power: </label>
                         </td>
-                        <td>
+                        <td class ="column2a">
                             <input id="power_input" type="number" min="1" max="1000">
                         </td>
-                        <td>
+                        <td class ="column3a">
                             <select name="power_units" id="power_units">
-                                <option value="HP"> HP </option>
-                                <option value="kW"> kW </option>
+                                <option value="HP"> Horsepower </option>
+                                <option value="kW"> Kilowatts </option>
                             </select>
                         </td>
                     </tr>
 
                     <tr>
-                        <td>
+                        <td class ="column1a">
                             <label for="speed"> Desired Speed: </label>
                         </td>
-                        <td>
+                        <td class ="column2a">
                             <input id="speed_input" type="number" min="1" max="10000">
                         </td>
-                        <td>RPM</td>
+                        <td class ="column3a">RPM</td>
                     </tr>
 
                     <tr>
-                        <td></td>
-                        <td>
+                        <td class ="column1a"></td>
+                        <td class ="column2a">
                             <button id="calculate" type="button"> Calculate </button>
                         </td>
-                        <td></td>
+                        <td class ="column3a"></td>
                     </tr>
 
                     <tr>
-                        <td>Estimated Torque: </td>
-                        <td> 
+                        <td class ="column1a">Estimated Torque: </td>
+                        <td class ="column2a"> 
                             <input id="estimate" type="text" disabled>
                         </td>
-                        <td> 
+                        <td class ="column3a"> 
                             Nm
                         </td>
                     </tr>
@@ -72,7 +72,9 @@
             <strong> Compatible Motors: </strong> <br> 
         </div>
 
-        <table hidden id="recommended"></table>
+        <div style="overflow-x:auto;">
+            <table hidden id="recommended"></table>
+        </div>
 
         <div hidden id="clearButton">
             <button id="clear" type="button"> Clear results </button>
@@ -374,34 +376,53 @@
                     // Populate Table Header
                     var tableheader = table.createTHead();
                     var headerrow = tableheader.insertRow(0);
+
                         var headercell0 = headerrow.insertCell(0);
                         headercell0.innerHTML = "<b>Catalog Number</b>";
+                        headercell0.className = "C0";
+
                         var headercell1 = headerrow.insertCell(1);
                         headercell1.innerHTML = "<b>Frame</b>";
+                        headercell1.className = "C1";
+
                         var headercell2 = headerrow.insertCell(2);
                         headercell2.innerHTML = "<b>Diameter</b>";
+                        headercell2.className = "C2";
                         
                         if ($("#power_units").val() == "kW") {
                             var headercell3 = headerrow.insertCell(3);
                             headercell3.innerHTML = "<b>kW</b>";
+                            headercell3.className = "C3";
                         }    
                         else if ($("#power_units").val() == "HP") {
                             var headercell3 = headerrow.insertCell(3);
                             headercell3.innerHTML = "<b>HP</b>";
+                            headercell3.className = "C3";
                         }
 
                         var headercell4 = headerrow.insertCell(4);
                         headercell4.innerHTML = "<b>RPM</b>";
+                        headercell4.className = "C4";
+
                         var headercell5 = headerrow.insertCell(5);
                         headercell5.innerHTML = "<b>Torque</b>";
+                        headercell5.className = "C5";
+
                         var headercell6 = headerrow.insertCell(6);
                         headercell6.innerHTML = "<b>Max Torque</b>";
+                        headercell6.className = "C6";
+
                         var headercell7 = headerrow.insertCell(7);
                         headercell7.innerHTML = "<b>Min Speed</b>";
+                        headercell7.className = "C7";
+
                         var headercell8 = headerrow.insertCell(8);
                         headercell8.innerHTML = "<b>Max Speed</b>";
+                        headercell8.className = "C8";
+
                         var headercell9 = headerrow.insertCell(9);
                         headercell9.innerHTML = "<b>Link</b>";
+                        headercell9.className = "C9";
                     
                     // Populate Table Rows
                     for (const result of results){
@@ -417,32 +438,50 @@
 
                             var cell0 = newRow.insertCell(0);
                             cell0.innerHTML = result.catalog_Number;
+                            cell0.className = "C0";
+
                             var cell1 = newRow.insertCell(1);
                             cell1.innerHTML = result.frame;
+                            cell1.className = "C1";
+
                             var cell2 = newRow.insertCell(2);
                             cell2.innerHTML = result.diameter;
+                            cell2.className = "C2";
 
                             if ($("#power_units").val() == "kW") {
                                 var cell3 = newRow.insertCell(3);
                                 cell3.innerHTML = result.kw;
+                                cell3.className = "C3";
                             }    
                             else if ($("#power_units").val() == "HP") {
                                 var cell3 = newRow.insertCell(3);
                                 cell3.innerHTML = result.hp;
+                                cell3.className = "C3";
                             }
                             
                             var cell4 = newRow.insertCell(4);
                             cell4.innerHTML = result.rpm;
+                            cell4.className = "C4";
+
                             var cell5 = newRow.insertCell(5);
                             cell5.innerHTML = result.torque;
+                            cell5.className = "C5";
+
                             var cell6 = newRow.insertCell(6);
                             cell6.innerHTML = result.max_torque;
+                            cell6.className = "C6";
+
                             var cell7 = newRow.insertCell(7);
                             cell7.innerHTML = result.min_speed;
+                            cell7.className = "C7";
+
                             var cell8 = newRow.insertCell(8);
                             cell8.innerHTML = result.max_speed;
+                            cell8.className = "C8";
+
                             var cell9 = newRow.insertCell(9);
                             cell9.innerHTML = '<a href="'+result.link+'">specs</a>';
+                            cell9.className = "C9";
                     }
                 }
 
