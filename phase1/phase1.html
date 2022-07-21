@@ -18,13 +18,15 @@
             }
 
             #calculator{
+                margin-left: auto;
+                margin-right: auto;
                 word-break:normal;
                 padding: 0 200px 50px;
             }
 
-            .container{
+            /* .container{
                 width: 100%;
-            }   
+            }    */
 
             .full-width-content .content {
                 padding: 0 0px 0px;
@@ -37,19 +39,19 @@
             }
 
             input {
-                width: 100%;
+                width: 80%;
                 display: block;
-                margin: 0 auto;
+                /* margin: 0 auto; */
             }
 
             .column1a{
                 text-align: right;
             }
 
-            /* .input-group {
+            .input-group {
                 width: 80%;
-                margin: 0;
-            } */
+                /* margin: 0; */
+            }
 
             /* Firefox */
             input[type=number] {
@@ -74,6 +76,21 @@
             #recommendation{
                 padding-left: 8px;
             }
+
+            .column1a, .column2a, .column3a {
+                padding: 4px 12px;
+            }
+
+            #calculate {
+                width: 100%;
+            }
+
+            /* #estimate {
+                border-radius: 5px 0px 0px 5px;
+            }
+            #input-group-append {
+                border-radius: 0px;
+            } */
                     
         </style>
 
@@ -91,7 +108,7 @@
                             <label for="power"> Desired Power: </label>
                         </td>
                         <td class ="column2a">
-                            <input id="power_input" type="number" min="1" max="1000">
+                            <input id="power_input" class="form-control-sm" type="number" min="1" max="1000">
                         </td>
                         <td class ="column3a">
                             <!-- <div class="dropdown">
@@ -116,7 +133,7 @@
                             <label for="speed"> Desired Speed: </label>
                         </td>
                         <td class ="column2a">
-                            <input id="speed_input" type="number" min="1" max="10000">
+                            <input id="speed_input" class="form-control-sm" type="number" min="1" max="10000">
                         </td>
                         <td class ="column3a">RPM</td>
                     </tr>
@@ -133,13 +150,13 @@
                         <td class ="column1a">Estimated Torque: </td>
                         <td class ="column2a"> 
                             <div class="input-group">
-                                <input id="estimate" type="text" class="form-control" disabled>
+                                <input id="estimate" type="text" class="form-control" aria-describedby="basic_units" disabled>
                                 <div class ="input-group-append">
-                                    <span class ="input-group-text"> N.m </span>
+                                    <span class ="input-group-text" id="basic-units"> N.m </span>
                                 </div>
                             </div>
                         </td>
-                        <td class ="column2a">
+                        <td class ="column3a">
                             <button id="calculate" type="button" class="btn btn-dark"> Calculate </button>
                         </td>
                     </tr>
