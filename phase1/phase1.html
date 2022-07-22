@@ -1,105 +1,197 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="assets/jquery-3.6.0.min.js"></script>
-         <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- CSS only -->
+       <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"> -->
 
-        <style> 
-
-            .green{background-color: #90EE90;} 
+       <style> 
           
-            .yellow{background-color: #FFE87C;} 
+       body {padding-bottom: 150px; padding-top: 0px;}
 
-            #recommended{
-                table-layout: auto;
-                border-collapse: collapse;
-                word-break: normal;
-            }
+       .green{ background-color: #aeffae;} 
+        
+       .yellow{background-color: #ffec97;} 
 
-            #calculator{
-                margin-left: auto;
-                margin-right: auto;
-                word-break:normal;
-                padding: 0 200px 50px;
-            }
+       /* controls sizing of recommended motors table */
+       #recommended{
+           table-layout: auto;
+           color: rgb(55, 55, 55);
+           border-collapse: collapse;
+           word-break: normal;
+       }
 
-            /* .container{
-                width: 100%;
-            }    */
+       /* fixes the WP limitation on content sizing */
+       .full-width-content .content {
+           padding: 0 0px 0px;
+       }
 
-            .full-width-content .content {
-                padding: 0 0px 0px;
-            }
 
-            input::-webkit-outer-spin-button,
-            input::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
+       /* controls sizing of top calculator */
+       #calculator{
+           margin-left: auto;
+           margin-right: auto;
+           word-break: normal;
+           width: 45rem;
+       }
 
-            input {
-                width: 80%;
-                display: block;
-                /* margin: 0 auto; */
-            }
+       input::-webkit-outer-spin-button,
+       input::-webkit-inner-spin-button {
+           -webkit-appearance: none;
+           margin: 0;
+       }
 
-            .column1a{
-                text-align: right;
-            }
 
-            .input-group {
-                width: 80%;
-                /* margin: 0; */
-            }
+       /* #speed_input, #power_input {
+           width: 80%;
+           display: block;
+           background-color: #f6f6f6
+           /* margin: 0 auto; } */
+       
 
-            /* Firefox */
-            input[type=number] {
-                -moz-appearance: textfield;
-            }
+       /* aligns calc input labels */
+       .column1a{
+           text-align: right;
+       }
 
-            #power_units {
-                padding: 3.5px 4px;
-                color: #333333;
-                background-color: #eeeeee;
-                border: 1px solid #dddddd;
-                cursor: pointer;
-                border-radius: 5px;
-            }
 
-            #power_units:focus,
-            #power_units:hover {
-                outline: none;
-                border: 1px solid #bbbbbb;
-            }
+       /* Firefox */
+       input[type=number] {
+           -moz-appearance: textfield;
+       }
 
-            #recommendation{
-                padding-left: 8px;
-            }
+       /* styles the power dropdown */
+       #power_units {
+           padding: 3.5px 4px;
+           color:rgb(55, 55, 55);
+           background-color: #eeeeee;
+           border: 1px solid rgb(55, 55, 55);
+           cursor: pointer;
+           border-radius: 4px;
+       }
 
-            .column1a, .column2a, .column3a {
-                padding: 4px 12px;
-            }
+       #power_units:focus,
+       #power_units:hover {
+           outline: none;
+           border: 1px solid #bbbbbb;
+       }
 
-            #calculate {
-                width: 100%;
-            }
+       /* "Compatible Motors" */
+       #recommendation{
+           padding-left: .05rem;
+           color: rgb(55, 55, 55);
+       }
 
-            /* #estimate {
-                border-radius: 5px 0px 0px 5px;
-            }
-            #input-group-append {
-                border-radius: 0px;
-            } */
-                    
-        </style>
+       .column1a{
+           color: rgb(55, 55, 55);
+       }
 
+       /* Makes the table spaced out better */
+       .column1a, .column2a, .column3a {
+           padding: 4px 12px;
+       }
+
+       /* calculate button */
+       #calculate {
+           /* width: 100%; */
+           border-radius: 4px;
+           height: 1.58rem;
+           color: rgb(55, 55, 55);
+           border: 1px solid rgb(55, 55, 55);
+       }
+
+       #clear {
+           /* width: 100%; */
+           border-radius: 4px;
+           height: 1.58rem;
+           color: white;
+           background: #ff4a2b;
+           border: none;
+       }
+
+
+       /* rpm label */
+       #rpm {
+           padding-left: .4rem;
+       }
+
+
+
+       /* for appending units to html input fields */
+
+       #power_input {
+           border: 1px solid rgb(55, 55, 55);
+           display: inline-flex;
+           padding-left: .3rem;
+           font-size: .8rem;
+           border-radius: 4px;
+           overflow: hidden;
+           /* width: 10rem;
+           height: 1.5rem; */
+           flex-grow: 0;
+           
+       }
+
+       #power_input:focus {
+           background: #efeeee;
+           outline: none;
+       }
+
+
+
+       .unit-input {
+           /* border: #DFDFDF solid 1px; */
+           border: 1px solid rgb(55, 55, 55);
+           display: inline-flex;
+           border-radius: 4px;
+           overflow: hidden;
+           font-family: sans-serif;
+           width: 100%;
+          /*  width: 10.23rem;
+           height: 1.5rem; */
+
+       }
+
+       .unit-input__input {
+           border: 0;
+           /* background: blue; */
+           padding: .3rem;
+           font-size: .8rem;
+           width: 5rem;
+       }
+
+       .unit-input__input:focus {
+           background: #efeeee;
+           /* background: green; */
+           outline: none;
+       }
+
+       .unit-input__prepend,
+       .unit-input__append {
+           /* background: #F4F4F4; */
+           background: rgb(237, 237, 237);
+           color: rgb(55, 55, 55);
+
+           padding: .3rem;
+           border: 0 solid rgb(55, 55, 55);
+           /* border: #DFDFDF solid 0; */
+           flex-grow: 0;
+       }
+
+       .unit-input__prepend {
+           border-right-width: 1px;
+       }
+
+       .unit-input__append {
+           border-left-width: 1px;
+       }
+             
+       </style>
     </head>
+
     <body>
         
         <div id ="calculator">
-            <!-- <strong> Torque Calculator </strong> -->
-
             <table>
                 <form>
 
@@ -108,22 +200,12 @@
                             <label for="power"> Desired Power: </label>
                         </td>
                         <td class ="column2a">
-                            <input id="power_input" class="form-control-sm" type="number" min="1" max="1000">
+                            <input id="power_input" type="number" min="1" max="1000">
                         </td>
                         <td class ="column3a">
-                            <!-- <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  Dropdown button
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                  <a class="dropdown-item" href="#">Horsepower</a>
-                                  <a class="dropdown-item" href="#">Kilowatts</a>
-                                </div>
-                              </div> -->
-
                             <select name="power_units" id="power_units">
-                                <option value="HP"> Horsepower </option>
-                                <option value="kW"> Kilowatts </option>
+                                <option value="HP"> hp </option>
+                                <option value="kW"> kW </option>
                             </select>
                         </td>
                     </tr>
@@ -133,31 +215,35 @@
                             <label for="speed"> Desired Speed: </label>
                         </td>
                         <td class ="column2a">
-                            <input id="speed_input" class="form-control-sm" type="number" min="1" max="10000">
-                        </td>
-                        <td class ="column3a">RPM</td>
-                    </tr>
+                            <span class="unit-input">
+                                <input class="unit-input__input" id="speed_input" type="number" min="1" max="10000">
+                                <span class="unit-input__append">RPM</span>
+                            </span>
 
-                    <!-- <tr>
-                        <td class ="column1a"></td>
-                        <td class ="column2a">
-                            <button id="calculate" type="button"> Calculate </button>
+                            <!-- <input id="speed_input" type="number" min="1" max="10000"> -->
                         </td>
-                        <td class ="column3a"></td>
-                    </tr> -->
+                        <td class ="column3a">
+                            <div hidden id="clearButton">
+                                <button id="clear" type="button"> Clear Results </button>
+                            </div>
+                        </td>
+                    </tr>
 
                     <tr>
                         <td class ="column1a">Estimated Torque: </td>
                         <td class ="column2a"> 
-                            <div class="input-group">
-                                <input id="estimate" type="text" class="form-control" aria-describedby="basic_units" disabled>
-                                <div class ="input-group-append">
-                                    <span class ="input-group-text" id="basic-units"> N.m </span>
-                                </div>
-                            </div>
+                        <div id="estimate-wrapper">
+                            <span class="unit-input">
+                                <input class="unit-input__input" id="estimate" type="text" disabled>
+                                <span class="unit-input__append">N.m</span>
+                            </span>
+                        </div>
+                            <!-- <div id="input-append">
+                                <input id="estimate" type="text" disabled> </input> N.m
+                            </div> -->
                         </td>
                         <td class ="column3a">
-                            <button id="calculate" type="button" class="btn btn-dark"> Calculate </button>
+                            <button id="calculate" type="button"> Calculate </button>
                         </td>
                     </tr>
 
@@ -170,19 +256,18 @@
             <strong> Compatible Motors: </strong> <br> 
         </div>
 
-        <div style="overflow-x:auto;">
-            <table hidden id="recommended" class="table table-hover"></table>
+        <div id="results-container">
+            <table hidden id="recommended"></table>
         </div>
 
-        <div hidden id="clearButton">
-            <button id="clear" type="button"> Clear results </button>
-        </div>
+        
 
 
         
         <script>
-
             $(document).ready(function() {
+
+                // Execute on Enter Press
                 $("#speed_input").keypress(function(e) {
                     if(e.keyCode==13){$("#calculate").click();}
                 });
@@ -190,10 +275,7 @@
                     if(e.keyCode==13){$("#calculate").click();}
                 });
 
-                // In case we want to make the calculator more reactive to inputs:
-                // $("#power_input").on("input change", function(e) {calculateTorque();});
-                // $("#speed_input").on("input change", function(e) {calculateTorque();});
-
+                // Recalculate on Input Change
                 $("#power_units").on("input change", function(e) {
                     $("#recommended tr").remove();
                     document.getElementById("recommendation").hidden = true;
@@ -210,6 +292,9 @@
                     $("#recommended tr").remove(); 
                     document.getElementById("recommendation").hidden = true;
                     document.getElementById("clearButton").hidden = true;
+                    document.getElementById("power_input").value = "";
+                    document.getElementById("speed_input").value = "";
+                    document.getElementById("estimate").value = "";
                 });
             });
 
@@ -430,8 +515,6 @@
                 return a.torque - b.torque;
             });
 
-            console.log(motors);
-
             function findCompatible() {
 
                 let results = [];
@@ -460,8 +543,6 @@
                         }
                     }
                 } 
-
-                console.log(results);
 
                 if (results.length != 0) { 
 

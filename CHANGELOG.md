@@ -23,6 +23,20 @@ CHANGELOG
 - leaving calculate button where it is for now to mimic WEN technologies calculator
 
 
+7/20
+- added bootstrap 
+- made application more compatible with wordpress
+- lots of styling changes
+- calculate button moved to bottom right of calculator
+- fields clear on clear button press as well as the results
+
+7/21
+- removed bootstrap
+- even more styling changes
+- created appended input fields w custom css to replace those we lost with bootstrap ;(
+- fixed alignment issues
+- changed to rem units for sizing
+- TODO: FIX UNIT SWITCH CALCULATE CHANGE TO CLEAR TABLE
 
 
 
@@ -33,6 +47,9 @@ CHANGELOG
 
 
 TODO - PHASE 1:
+
+- move hp kw dropdown to appended text input
+- MAKE ROWS CLICKABLE
 
 - order motors in a different way?
 - remove specs link and make it so you can just click the table row of the motor you want
