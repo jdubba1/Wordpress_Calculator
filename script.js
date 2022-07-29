@@ -243,6 +243,7 @@ var motors = [
 
 // sort motors by ascending torque for now
 // in phase 2, a full sort method for any variable will be implemented
+// develop this function
 
 motors.sort((a,b) => {
     return a.torque - b.torque;
@@ -288,6 +289,9 @@ function findCompatible() {
         // Populate Table Header
         var tableheader = table.createTHead();
         var headerrow = tableheader.insertRow(0);
+
+
+        // test doing this w for loop in other file this is dumb
 
             var headercell0 = headerrow.insertCell(0);
             headercell0.innerHTML = "Catalog Number";
