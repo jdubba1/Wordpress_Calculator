@@ -1,0 +1,172 @@
+body {padding-bottom: 150px; padding-top: 0px;}
+
+/* controls sizing of top calculator */
+#calculator{
+    margin-left: auto;
+    margin-right: auto;
+    word-break: normal;
+    /* width: 45rem; */
+}
+
+/* Makes the calculator spaced out better */
+.column1a, .column2a, .column3a {
+    padding: 4px 12px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* aligns calc input labels */
+.column1a{
+    text-align: right;
+}
+
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* calculate button */
+#calculate {
+    width: 100%;
+    border-radius: 4px;
+
+}
+
+#clear {
+    width: 100%;
+    /* border-radius: 4px; */
+    /* height: 1.58rem; */
+    background: #D1D1D1;
+    /* border: none; */
+}
+
+
+/* rpm label */
+#rpm {
+    padding-left: .4rem;
+}
+
+#power_input {
+    border: none;
+    background: #f5f4f4;
+    /* display: inline-flex; */
+    width: 84%;
+    padding: .75rem;
+    /* padding-left: .3rem; */
+    /* font-size: .8rem; */
+    border-radius: 4px;
+    /* overflow: hidden; */
+    /* width: 10rem;
+    height: 1.5rem; */
+    /* flex-grow: 0; */
+    
+}
+        /* for appending units to html input fields */
+
+
+
+#power_input:focus {
+    /* background: #efeeee; */
+    outline: none;
+}
+
+
+
+.unit-input {
+    background: #f5f4f4;
+    display: inline-flex;
+    border-radius: 4px;
+    overflow: hidden;
+    font-family: sans-serif;
+    color: #b8b8b8;
+    width: 100%;
+}
+
+.unit-input__input {
+    border: 0;
+    background: #f5f4f4;
+    padding: .3rem;
+    /* font-size: .8rem; */
+    width: 5rem;
+}
+
+.unit-input__input:focus {
+    /* background: #d1d1d1; */
+    /* background: green; */
+    outline: none;
+}
+
+.unit-input__prepend,
+.unit-input__append {
+    /* background: #F4F4F4; */
+    /* background: rgb(237, 237, 237); */
+    background: #f5f4f4;
+    /* color: rgb(55, 55, 55); */
+
+    padding: .75rem;
+    border: none;
+    /* border: #DFDFDF solid 0; */
+    flex-grow: 0;
+}
+
+.unit-input__prepend {
+    border-right-width: 1px;
+}
+
+.unit-input__append {
+    border-left-width: 1px;
+}
+
+
+
+
+
+
+/* "Compatible Motors" */
+#recommendation{
+    padding-left: .1rem;
+    /* color: rgb(55, 55, 55); */
+}
+
+.green{ background-color: none;} 
+
+.yellow{color: #b4b5b5;} 
+
+/* controls sizing of recommended motors table */
+#recommended{
+    table-layout: auto;
+    color: rgb(55, 55, 55);
+    border-collapse: collapse;
+    word-break: normal;
+}
+
+/* fixes the WP limitation on content sizing */
+.full-width-content .content {
+    padding: 0 0px 0px;
+}
+
+
+
+    
+
+    
+
+
+
+    
+
+    
+
+
+
+
+
+    
+
+
+

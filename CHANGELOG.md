@@ -39,7 +39,9 @@ CHANGELOG
 - TODO: FIX UNIT SWITCH CALCULATE CHANGE TO CLEAR TABLE
 
 8/08
--test
+- sorting fixed to be like the mockup with yellow motors at bottom
+- colors: clear btn = d1d1d1, calculate btn = #4599c0, append label= #b8b8b8, power drp = #f5f5f4, grey motors = #b4b5b5
+
 
 
 
