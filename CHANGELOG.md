@@ -38,9 +38,21 @@ CHANGELOG
 - changed to rem units for sizing
 - TODO: FIX UNIT SWITCH CALCULATE CHANGE TO CLEAR TABLE
 
-8/08
+8/8
 - sorting fixed to be like the mockup with yellow motors at bottom
 - colors: clear btn = d1d1d1, calculate btn = #4599c0, append label= #b8b8b8, power drp = #f5f5f4, grey motors = #b4b5b5
+- fixed appended buttons
+- table is now lined up and styled better
+- removed title from wordpress
+- todo: fix sticky footer issue
+- changed yellow results to gray
+
+8/11
+- working code is now in styling test/test.html
+- links now open in new tab
+- new catalog numbers are being used
+- changing filtering logic to not show motors that aren't within 50% of requested value
+- figure out a way to sort w ascending torque but keeping yellows at bottom
 
 
 

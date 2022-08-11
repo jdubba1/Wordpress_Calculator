@@ -178,10 +178,6 @@ input[type=number] {
 }
 
 
-
-
-
-
 /* "Compatible Motors" */
 #recommendation{
   padding-left: .5rem;
@@ -254,7 +250,7 @@ input[type=number] {
                             </td>
                         </tr>
                         <tr>
-                            <td class ="column1a">Estimated Torque: </td>
+                            <td class ="column1a">Torque: </td>
                             <td class ="column2a"> 
                             <div id="estimate-wrapper">
                                 <span class="unit-input">
@@ -671,7 +667,7 @@ input[type=number] {
                             cell8.className = "C8";
 
                             var cell9 = newRow.insertCell(9);
-                            cell9.innerHTML = '<a href="'+result.link+'">specs</a>';
+                            cell9.innerHTML = '<a href="'+result.link+'" target="_blank" rel="noopener noreferrer">specs</a>';
                             cell9.className = "C9";
                     }
                 }
