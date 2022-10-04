@@ -2,9 +2,7 @@
 
 
 
-Calculator for WordPress using HTML / JS w/ Jquery. No styling is included. 
-
-Commented code sections are included for optional feature additions. 
+Calculator for WordPress tailored for the headers and footers plugin.
 
 The main calculator is housed in the calculator div, and structured as an html table element. The logic of the calculation is preformed in the calculateTorque() function. Options are included to add kW conversion, etc. Note that kW ratings must be added to the motor dictionary in order for the recommendation function to work properly.
 
